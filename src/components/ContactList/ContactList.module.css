@@ -1,0 +1,9 @@
+.list {
+  max-width: 1400px;
+  padding-inline-start: 0px;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  flex-wrap: wrap;
+}
