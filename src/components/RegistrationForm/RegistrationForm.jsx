@@ -74,7 +74,7 @@ const RegistrationForm = () => {
   const passwordId = useId();
 
   return (
-    <div className={css.container}>
+    <div className={css.containerForm}>
       <h2 className={css.title}>Please fill in all fields for registration!</h2>
       <Formik
         initialValues={initialValues}

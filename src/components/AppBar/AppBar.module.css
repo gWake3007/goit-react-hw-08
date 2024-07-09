@@ -1,0 +1,11 @@
+.head {
+  border: 1px solid grey;
+  border-radius: 7px;
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 4px 2px -2px gray;
+  display: flex;
+  justify-content: flex-start;
+  gap: 480px;
+}

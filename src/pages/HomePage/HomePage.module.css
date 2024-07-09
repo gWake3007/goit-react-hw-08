@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 250px;
+}
+
+.title {
+  font-size: 58px;
+  line-height: 1.5;
+  background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  -webkit-background-clip: text;
+  color: transparent;
+}

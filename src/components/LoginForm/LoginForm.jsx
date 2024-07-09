@@ -41,7 +41,7 @@ const LoginForm = () => {
   const passwordId = useId();
 
   return (
-    <div className={css.container}>
+    <div className={css.containerForm}>
       <h2 className={css.title}>Please enter your Login!</h2>
       <Formik
         initialValues={initialValues}

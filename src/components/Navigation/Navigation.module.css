@@ -1,4 +1,6 @@
 .nav {
+  display: flex;
+  justify-content: flex-start;
 }
 
 .link {
