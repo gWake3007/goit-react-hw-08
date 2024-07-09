@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useId } from "react";
 import { useDispatch } from "react-redux";
+import { registrationOperation } from "../../redux/auth/operations";
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
@@ -56,9 +57,16 @@ const RegistrationForm = () => {
       .required("Password is required"),
   });
 
-  const handleSubmit = (values, actions) => {
-    console.log(values);
-    actions.resetForm();
+  const handleSubmit = (values, { resetForm }) => {
+    dispatch(registrationOperation(values))
+      .unwrap()
+      .then(() => {
+        console.log("Registration successful! Welcome!");
+      })
+      .catch((error) => {
+        console.error("Registration error. Please try again.", error);
+      });
+    resetForm();
   };
 
   const nameId = useId();
@@ -66,49 +74,57 @@ const RegistrationForm = () => {
   const passwordId = useId();
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-    >
-      <Form className={css.form}>
-        <div className={css.container}>
-          <label htmlFor={nameId} className={css.label}>
-            Name:
-          </label>
-          <Field type="text" className={css.input} id={nameId} name="name" />
-          <ErrorMessage className={css.error} component="span" name="name" />
-        </div>
-        <div className={css.container}>
-          <label htmlFor={emailId} className={css.label}>
-            Email:
-          </label>
-          <Field type="email" className={css.input} id={emailId} name="email" />
-          <ErrorMessage className={css.error} component="span" name="email" />
-        </div>
-        <div className={css.container}>
-          <label htmlFor={passwordId} className={css.label}>
-            Password:
-          </label>
-          <Field
-            type="password"
-            className={css.input}
-            id={passwordId}
-            name="password"
-          />
-          <ErrorMessage
-            className={css.error}
-            component="span"
-            name="password"
-          />
-        </div>
-        <div className={css.containerBtn}>
-          <button type="submit" className={css.btn}>
-            Registration
-          </button>
-        </div>
-      </Form>
-    </Formik>
+    <div className={css.container}>
+      <h2 className={css.title}>Please fill in all fields for registration!</h2>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form className={css.form}>
+          <div className={css.container}>
+            <label htmlFor={nameId} className={css.label}>
+              Name:
+            </label>
+            <Field type="text" className={css.input} id={nameId} name="name" />
+            <ErrorMessage className={css.error} component="span" name="name" />
+          </div>
+          <div className={css.container}>
+            <label htmlFor={emailId} className={css.label}>
+              Email:
+            </label>
+            <Field
+              type="email"
+              className={css.input}
+              id={emailId}
+              name="email"
+            />
+            <ErrorMessage className={css.error} component="span" name="email" />
+          </div>
+          <div className={css.container}>
+            <label htmlFor={passwordId} className={css.label}>
+              Password:
+            </label>
+            <Field
+              type="password"
+              className={css.input}
+              id={passwordId}
+              name="password"
+            />
+            <ErrorMessage
+              className={css.error}
+              component="span"
+              name="password"
+            />
+          </div>
+          <div className={css.containerBtn}>
+            <button type="submit" className={css.btn}>
+              Registration
+            </button>
+          </div>
+        </Form>
+      </Formik>
+    </div>
   );
 };
 
