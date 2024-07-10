@@ -7,5 +7,6 @@
   box-shadow: 0 4px 2px -2px gray;
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   gap: 480px;
 }

@@ -56,24 +56,44 @@ export const loginOutOperation = createAsyncThunk(
 
 export const refreshUserOperation = createAsyncThunk(
   "auth/refresh",
-  async (_, { rejectWithValue, getState }) => {
-    try {
-      const { auth } = getState();
-      setHeaderToken(auth.token);
-      const { data } = await axios.get("/users/current");
-      setHeaderToken(data.token);
-      return data;
-    } catch (error) {
-      clearHeaderToken();
-      return rejectWithValue(error.message);
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.auth.token;
+
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue("Unable to fetch user");
     }
-  },
-  {
-    condition: (_, { getState }) => {
-      const { auth } = getState();
-      if (!auth.token) {
-        return false;
-      }
-    },
+
+    try {
+      setHeaderToken(persistedToken);
+      const res = await axios.get("users/current");
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
 );
+
+// export const refreshUserOperation = createAsyncThunk(
+//   "auth/refresh",
+//   async (_, { rejectWithValue, getState }) => {
+//     try {
+//       const { auth } = getState();
+//       setHeaderToken(auth.token);
+//       const { data } = await axios.get("/users/current");
+//       setHeaderToken(data.token);
+//       return data;
+//     } catch (error) {
+//       clearHeaderToken();
+//       return rejectWithValue(error.message);
+//     }
+//   },
+//   {
+//     condition: (_, { getState }) => {
+//       const { auth } = getState();
+//       if (!auth.token) {
+//         return false;
+//       }
+//     },
+//   }
+// );

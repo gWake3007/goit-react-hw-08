@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+
+.btn {
+  border: 1px solid grey;
+  border-radius: 7px;
+  padding: 4px 12px;
+}
