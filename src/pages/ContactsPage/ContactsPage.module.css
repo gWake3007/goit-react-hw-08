@@ -1,0 +1,14 @@
+.title {
+  font-size: 48px;
+  line-height: 1.5;
+  background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.text {
+  line-height: 1.5;
+  background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  -webkit-background-clip: text;
+  color: transparent;
+}

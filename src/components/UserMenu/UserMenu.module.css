@@ -1,11 +1,19 @@
 .container {
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 50px;
 }
 
 .btn {
   border: 1px solid grey;
   border-radius: 7px;
-  padding: 4px 12px;
+  padding: 7px 12px;
+  background-color: #1a1a1a;
+  transition: background-color 0.4s ease;
+}
+
+.btn:hover {
+  background-color: grey;
+  transition: background-color 0.4s ease;
 }
