@@ -1,7 +1,7 @@
 .container {
   border: 1px solid white;
   border-radius: 7px;
-  max-width: 310px;
+  max-width: 335px;
   padding: 10px;
   margin-top: 15px;
 }
@@ -11,5 +11,5 @@
 }
 
 .input {
-  width: 290px;
+  width: 315px;
 }

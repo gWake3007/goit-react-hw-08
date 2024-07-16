@@ -1,17 +1,17 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
 .item {
-  width: 310px;
+  width: 335px;
   border: 1px solid white;
   border-radius: 7px;
   padding: 10px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .stroke {
@@ -29,6 +29,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 70px;
 }
 
 .title {

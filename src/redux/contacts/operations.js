@@ -43,3 +43,19 @@ export const deleteContact = createAsyncThunk(
     }
   }
 );
+
+export const changeContact = createAsyncThunk(
+  "contacts/changeContact",
+  async ({ id, updatedData }, { rejectWithValue }) => {
+    try {
+      // Видаляємо id з updatedData перед відправкою
+      const { id: contactId, ...dataToSend } = updatedData;
+      const { data } = await axios.patch(`/contacts/${id}`, dataToSend);
+      toast.success("The contact was successfully changed!");
+      return data;
+    } catch (error) {
+      toast.error("Failed to change contact. Please try again!");
+      return rejectWithValue(error.message);
+    }
+  }
+);

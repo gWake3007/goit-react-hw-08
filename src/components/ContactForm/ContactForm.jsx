@@ -1,18 +1,20 @@
 import css from "./ContactForm.module.css";
 import * as Yup from "yup";
 import { nanoid } from "nanoid";
-import { useId } from "react";
+import { useId, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contacts/operations";
+import { useDispatch, useSelector } from "react-redux";
+import { addContact, changeContact } from "../../redux/contacts/operations";
+import { setSelectedContact } from "../../redux/contacts/slice";
+import { selectSelectedContact } from "../../redux/contacts/selectors";
 
 const ContactForm = () => {
-  const initialValues = {
-    name: "",
-    number: "",
-  };
-
   const dispatch = useDispatch();
+  const selectedContact = useSelector(selectSelectedContact);
+  const initialValues = {
+    name: selectedContact ? selectedContact.name : "",
+    number: selectedContact ? selectedContact.number : "",
+  };
 
   const nameValidation = (value) => {
     const nameRegex = /^[a-zA-Z]+$/;
@@ -54,24 +56,53 @@ const ContactForm = () => {
       .required("Required"),
   });
 
+  // const handleSubmit = (values, { resetForm }) => {
+  //   const newContact = {
+  //     id: nanoid(),
+  //     name: values.name,
+  //     number: values.number,
+  //   };
+  //   dispatch(addContact(newContact));
+  //   resetForm();
+  // };
+
   const handleSubmit = (values, { resetForm }) => {
-    const newContact = {
-      id: nanoid(),
-      name: values.name,
-      number: values.number,
-    };
-    dispatch(addContact(newContact));
+    if (selectedContact) {
+      const updatedContact = {
+        name: values.name,
+        number: values.number,
+      };
+      //?dispatch - тієї частини в operations з деструкторизацією!
+      dispatch(
+        changeContact({ id: selectedContact.id, updatedData: updatedContact })
+      );
+      dispatch(setSelectedContact(null)); // Скидання вибраного контакту після редагування
+    } else {
+      const newContact = {
+        id: nanoid(),
+        name: values.name,
+        number: values.number,
+      };
+      dispatch(addContact(newContact));
+    }
     resetForm();
   };
 
   const nameId = useId();
   const phoneId = useId();
 
+  useEffect(() => {
+    return () => {
+      dispatch(setSelectedContact(null)); // Скидання вибраного контакту при виході з форми
+    };
+  }, [dispatch]);
+
   return (
     <Formik
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
       initialValues={initialValues}
+      enableReinitialize
     >
       <Form className={css.form}>
         <div className={css.container}>
@@ -90,7 +121,7 @@ const ContactForm = () => {
         </div>
         <div className={css.containerBtn}>
           <button className={css.btn} type="submit">
-            Add contact
+            {selectedContact ? "Change contact" : "Add contact"}
           </button>
         </div>
       </Form>
