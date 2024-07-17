@@ -28,8 +28,8 @@ const ContactForm = () => {
     if (parts[0].length < 3 || parts[1].length < 3) {
       return "Both first and last name should be at least 3 characters long";
     }
-    if (parts[0].length > 50 || parts[1].length > 50) {
-      return "Both first and last name should be no longer than 50 characters";
+    if (parts[0].length > 20 || parts[1].length > 20) {
+      return "Both first and last name should be no longer than 20 characters";
     }
     if (
       parts[0][0] !== parts[0][0].toUpperCase() ||
@@ -42,12 +42,14 @@ const ContactForm = () => {
 
   const validationSchema = Yup.object().shape({
     name: Yup.string()
-      .test(
-        "is-full-name",
-        "User name is not valid. Format should be FirstName LastName",
-        (value) => nameValidation(value) === true
-      )
-      .required("Required"),
+      .required("Required")
+      .test("custom-name-validation", function (value) {
+        const validationResult = nameValidation(value);
+        if (validationResult !== true) {
+          return this.createError({ message: validationResult });
+        }
+        return true;
+      }),
     number: Yup.string()
       .matches(
         /^\d{3}-\d{2}-\d{2}$/,
@@ -55,16 +57,6 @@ const ContactForm = () => {
       )
       .required("Required"),
   });
-
-  // const handleSubmit = (values, { resetForm }) => {
-  //   const newContact = {
-  //     id: nanoid(),
-  //     name: values.name,
-  //     number: values.number,
-  //   };
-  //   dispatch(addContact(newContact));
-  //   resetForm();
-  // };
 
   const handleSubmit = (values, { resetForm }) => {
     if (selectedContact) {

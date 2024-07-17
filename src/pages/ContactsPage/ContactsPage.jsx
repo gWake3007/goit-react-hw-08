@@ -14,6 +14,7 @@ const ContactsPage = () => {
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
+
   return (
     <div>
       <h1 className={css.title}>Your contacts</h1>
