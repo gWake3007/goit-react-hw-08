@@ -1,11 +1,13 @@
 .item {
   width: 335px;
+  min-height: 150px;
   border: 1px solid white;
   border-radius: 7px;
   padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 9px;
 }
 
 .container {
