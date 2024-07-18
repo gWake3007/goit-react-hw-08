@@ -1,0 +1,38 @@
+.dialog .modal {
+  background-color: rgb(13, 54, 35);
+  border: 2px solid black;
+  border-radius: 10px;
+  min-height: 200px;
+  min-width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: cover;
+}
+
+.dialog .btn {
+  color: white;
+  background-color: grey;
+  border: 1px solid white;
+}
+
+.dialog .title {
+  color: wheat;
+  font-size: 36px;
+}
+
+.dialog .description {
+  color: wheat;
+  font-size: 22px;
+}
+
+.dialog .btnContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+}
+
+.dialog .MuiDialog-paper {
+  background-color: blue;
+}

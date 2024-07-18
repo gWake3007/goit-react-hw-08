@@ -2,14 +2,14 @@ import css from "./Contact.module.css";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { deleteContact } from "../../redux/contacts/operations";
+import { openModal } from "../../redux/modal/slice";
 import { setSelectedContact } from "../../redux/contacts/slice";
 
 const Contact = ({ contact }) => {
   const dispatch = useDispatch();
 
-  const handleDelete = () => {
-    dispatch(deleteContact(contact.id));
+  const handleOpenModal = () => {
+    dispatch(openModal(contact.id));
   };
 
   const handleChange = () => {
@@ -29,7 +29,7 @@ const Contact = ({ contact }) => {
         </div>
       </div>
       <div className={css.containerBtn}>
-        <button className={css.btn} type="button" onClick={handleDelete}>
+        <button className={css.btn} type="button" onClick={handleOpenModal}>
           Delete
         </button>
         <button className={css.btn} type="button" onClick={handleChange}>
